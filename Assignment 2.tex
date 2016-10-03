@@ -1,0 +1,280 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage{amssymb} 
+\usepackage{amsmath} 
+\usepackage{euscript} 
+\usepackage{latexsym}
+\usepackage{mathrsfs}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{dsfont}
+\usepackage{proof}
+\usepackage{color}
+\usepackage{etex,xy}
+\usepackage{version}
+\xyoption{all} 
+
+\includeversion{question}
+\includeversion{solution}
+
+\newcommand{\ipc}{{\sf IPC}}
+\newcommand{\cpc}{{\sf CPC}}
+\newcommand{\iqc}{{\sf IQC}}
+\newcommand{\cqc}{{\sf CQC}}
+\newcommand{\LJ}{{\sf LJ}}
+\newcommand{\Gth}{{\sf G3}}
+\newcommand{\GKp}{{\sf GKp}}
+\newcommand{\LK}{{\sf LK}}
+\newcommand{\K}{{\sf K}}
+\newcommand{\KT}{{\sf KT}}
+\newcommand{\Kf}{{\sf K4}}
+\newcommand{\GL}{{\sf GL}}
+\newcommand{\Sf}{{\sf S4}}
+
+\newcommand{\T}{{T}}
+\newcommand{\lang}{{\cal L}}
+\newcommand{\lgc}{{\sf L}}
+
+\newcommand{\langprop}{{\cal L}_{\rm prp}}
+\newcommand{\langpred}{{\cal L}_{\rm prd}}
+\newcommand{\formprop}{{\cal F}_{\rm prp}}
+\newcommand{\formpred}{{\cal F}_{\rm prd}}
+
+\newcommand{\af}{\vdash}
+\newcommand{\waar}{\vDash}
+\newcommand{\defn}{\equiv}
+\newcommand{\slot}{\trs{$\Box$}}
+
+\newcommand{\cala}{{\cal A}}
+\newcommand{\calc}{{\cal C}}
+\newcommand{\cald}{{\cal D}}
+\newcommand{\mg}{{\cal G}}
+\newcommand{\mh}{{\cal H}}
+\newcommand{\cali}{{\cal I}}
+\newcommand{\calp}{{\cal P}}
+\newcommand{\calr}{{\cal R}}
+\newcommand{\cals}{{\cal S}}
+\newcommand{\calv}{{\cal V}}
+\newcommand{\Ga}{\Gamma}
+\newcommand{\The}{\Theta}  
+\newcommand{\De}{\Delta} 
+\newcommand{\Sig}{\Sigma}  
+\newcommand{\ph}{\varphi}
+\newcommand{\sig}{\sigma}
+
+\newcommand{\imp}{\rightarrow} 
+\newcommand{\Imp}{\, \Rightarrow \, }
+\newcommand{\ifff}{\leftrightarrow} 
+\newcommand{\Ifff}{\, \Leftrightarrow \, }
+\newcommand{\Rgt}{\Rightarrow}
+\newcommand{\Lft}{\Leftarrow}
+\newcommand{\en}{\wedge} 
+\newcommand{\of}{\vee} 
+\newcommand{\E}{\exists}
+\newcommand{\A}{\forall} 
+\newcommand{\bof}{\bigvee}
+\newcommand{\ben}{\bigwedge}
+\newcommand{\bx}{\Box}
+\newcommand{\dbx}{\boxdot}
+\newcommand{\seq}{\Rightarrow}
+\newcommand{\klg}{\leqslant}
+
+\newcommand{\nd}[2]{#1 \vdash #2}
+\newcommand{\sq}[2]{#1 \Rightarrow #2}
+\newcommand{\Ra}{\rightarrow}
+\newcommand{\Zip}[1]{\langle #1 \rangle}
+\newcommand{\bang}{\mathop{!}}
+\newcommand{\lolli}{\multimap}
+\newcommand{\bs}{\backslash}
+\newcommand{\with}{\mathbin{\&}}
+\newcommand{\amp}{\mathbin{\&}}
+\newcommand{\W}[1]{\textrm{#1}}
+\newcommand{\fdia}{\diamondsuit}
+\newcommand{\gbox}{\Box}
+\newcommand\rlambda{\overset{{}_{\shortrightarrow}}{\lambda}}
+\newcommand\llambda{\overset{{}_{\shortleftarrow}}{\lambda}}
+
+\parindent0pt
+
+\begin{document}
+\setlength{\unitlength}{1cm}
+
+\begin{center}
+{\bf Methods in AI Research} \\
+\vskip5pt 
+{\bf Exercises II} \\
+\vskip5pt 
+\end{center}
+
+\section{}
+\begin{small}
+$(\dag)\qquad$ 
+\[
+\infer[\lolli E]{\nd{\Zip{A},\Zip{B},\Zip{A\lolli (B\lolli C)}}{C}}
+{\infer[\lolli I]{\nd{\Zip{A\lolli (B\lolli C)}}{(A\otimes B)\lolli C}}
+{\infer[\otimes E]{\nd{\Zip{A \lolli (B \lolli C)}}{(A \otimes B)\lolli C}}{{\infer[]{\nd{(A \otimes B)}{(A \otimes B)}}{Ax}} & 
+{\infer[\lolli E]{\nd{\Zip{A \lolli (B \lolli C)},{A},{B}}{C}}{
+{\infer[\lolli E]{\nd{\Zip{A \lolli (B \lolli C)},A}{(B \lolli C)}}
+{\infer[]{\nd{\Zip{A\lolli(B \lolli C)}}{\Zip{A \lolli (B \lolli C)}}}{Ax}}}
+&{\infer[]{\nd{B}{B}}{Ax}}}}}} &
+\infer[]{\nd{\Zip{A},\Zip{B}}{A\otimes B}}
+{{\infer[]{\nd{\Zip{A}}{A}}{Ax}} &
+{\infer[]{\nd{\Zip{B}}{B}}{Ax}}}}
+\]
+
+\[
+\infer[\lolli E]{\nd{\Zip{A},\Zip{B},\Zip{A \lolli (B \lolli C)}}{C}}
+{{\infer[E \lolli]{\nd{\Zip{A \lolli (B \lolli C)},\Zip{A}}{(B \lolli C)}}{{w}&{r}}}&
+{\infer[]{\nd{B}{B}}{Ax}}}
+\]
+\end{small}
+\begin{itemize}
+  
+  \item[-] the proof is not in normal form: perform the applicable
+  proof reduction(s) to bring it in normal form;
+  \item[-] compute the term for (\dag), and the term that results from term reduction(s).
+\end{itemize}
+You may leave applications of Exchange implicit, i.e.~treat the antecedent as
+a multiset of assumptions. Remember: the normal form is reached when \emph{no further
+reductions} are applicable.
+
+
+\section{}
+Below you find two ILL judgements and two programs (terms). Which 
+term goes with which judgement?
+
+\begin{enumerate}
+\item $\lambda\Zip{w}\lambda\Zip{y}.x\ \Zip{\lambda\Zip{z}.z\Zip{w}}\ \Zip{y}$
+\item $\lambda\Zip{w}\lambda\Zip{y}.w\ \Zip{\lambda\Zip{z}.x\ \Zip{z}\ \Zip{y}}$
+\begin{footnotesize}
+\item $\nd{\Zip{A\lolli B\lolli C}}{((A\lolli C)\lolli C)\lolli B\lolli C}$
+\[ 
+\infer[\lolli I]{\nd{\Zip{A\lolli B\lolli C}}{((A\lolli C)\lolli C)\lolli B\lolli C}}
+{\infer[\lolli I]{\nd{\Zip{A \lolli B \lolli C},((A \lolli C)\lolli C)}{B \lolli C}}
+{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},((A \lolli C)\lolli C),B}{C}}{{\infer[]{\nd{((A \lolli C) \lolli C)}{((A \lolli C) \lolli C)}}{Ax}}&
+{\infer[\lolli I]{\nd{\Zip{A \lolli B \lolli C},B} {(A \lolli C)}}
+{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},B,A}{C}}{
+{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},A}{B \lolli C}}
+{
+{\infer[]{\nd{\Zip{A \lolli B \lolli C}}{\Zip{A \lolli B \lolli C}}}{Ax}}
+&
+{\infer[]{\nd{A}{A}}{Ax}}
+}}
+&
+{\infer[]{\nd{B}{B}}{Ax}}
+}}}}}}
+\]
+\[
+\infer[\lolli I]{\nd{\Zip{x:((A \lolli C)\lolli C)\lolli B \lolli C}}{\lambda\Zip{w}.\lambda\Zip{y}.x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}}:A\lolli B \lolli C}
+{\infer[\lolli I]{\nd{\Zip{x:((A \lolli C)\lolli C)\lolli B\lolli C},\Zip{w:A}}
+{\lambda\Zip{y}.x.\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}:B \lolli C}}
+{\infer[\lolli E]{\nd{{\Zip{x:((A \lolli C)\lolli C)\lolli B\lolli C},\Zip{w:A},\Zip{y:B}}{{x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}}}:C}}{{s}&{g}}}
+}
+\]
+
+\end{footnotesize}
+\begin{footnotesize}
+\item 
+$\nd{\Zip{((A\lolli C)\lolli C)\lolli B\lolli C}}{A\lolli B\lolli C}$
+\[
+\infer[\lolli I]{\nd{\Zip{((A\lolli C)\lolli C)\lolli B\lolli C}}{A\lolli B\lolli C}}
+{\infer[\lolli I]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A}{B \lolli C}}
+{\infer[\lolli E]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A,B}{C}}{
+{\infer[\lolli E]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A }{B \lolli C}}
+{{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C}}{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C}}}&
+{\infer[\lolli I]{\nd{A}{(A \lolli C)\lolli C}}
+{\infer[\lolli E]{\nd{A,A \lolli C}{C}}
+{{\infer[]{\nd{A \lolli C}{A\lolli C}}{Ax}}
+&{\infer[]{\nd{A}{A}}{Ax}}
+}
+}}}}
+&
+{\infer[]{\nd{B}{B}}{Ax}}
+}}}
+\]
+\end{footnotesize}
+\end{enumerate}
+
+Now consider the following translation from implication types/terms in
+ordered grammar logic into linear implication types/terms.
+The translation undoes the distinction between left and right implication:
+both slashes are mapped to linear implication.
+\[\W{types:}\qquad X^{*}=X,\quad (A/B)^{*} = (B\bs A)^{*} = B^{*}\lolli A^{*}\]
+\[\W{terms:}\qquad
+x^{*}=x,\quad (\llambda x.t)^{*}=(\rlambda x.t)^{*}=\lambda\Zip{x^{*}}.t^{*},\quad
+(t\triangleleft u)^{*}=(u\triangleright t)^{*} = t^{*}\Zip{u^{*}}\]
+
+One of the ILL judgements/terms above is the translation of a proof in ordered grammar logic \textbf{NL}
+(no structural rules).
+Give such a proof, using the rules as given in Exercises PH 5, in Blackboard. The other judgement/term does not
+have a source with directional implications $\slash, \bs$ instead of $\lolli$.
+Give the ILL proof for that term, showing explicitly where you have to
+apply Exchange steps.
+
+Hint: for the ILL type $A\lolli B\lolli C$, you will want to try its four ordered versions:
+$A\bs(B\bs C)$, $A\bs(C/B)$, $(B\bs C)/A$, $(C/B)/A$. Similarly for the other types \ldots
+
+
+
+\section{}
+
+Let $\LK^-$ be the system consisting of the axioms and rules of $\LK$ minus Cut and the weakening and contraction rules. Give a formula $A$ such that the sequent $(\,\seq A)$ is provable in $\LK$, but not in $\LK^-$ and provide a  proof of the sequent in  $\LK$ and an argument showing its  nonprovability in $\LK^-$. 
+
+
+\section{}
+
+
+{\bf Proof of (II):}
+The antecedent of the endsequent contains a implication, $A \imp B$, and the last inference is L$\en$ and thus looks as follows. 
+\[
+ \infer[L \en]{\Ga, C\en D \seq A \imp B,\De}{\Ga,C,D \seq A\imp B, \De} 
+\]
+By soundness, $I(\Ga, C\en D \seq A \imp B,\De)$ holds in $\cpc$. Therefore also 
+$I(\Ga ,C \en D ,A \seq B, \De)$ holds in $\cpc$, as they follow from $I(\Ga, C\en D \seq A \imp B,\De)$. By completeness they are derivable in \Gth, say with derivation $\cald_C$. Then the following is a proof of $\Ga, C\en D \seq A \imp B,\De$ in which the last inference is an application of rule R$\imp$. 
+\[
+ \infer[R \imp]{\Ga, C\en D \seq A \imp B,\De}{\deduce[\cald_C]
+ {\Ga, C\en D \seq A \imp B,\De}{} }
+\]
+ 
+{\bf Proof of (III):} 
+The antecedent of the endsequent contains a implication, $C \imp D$, and the last inference is L$\en$ and thus looks as follows. 
+\[
+ \infer[L \en]
+ {\Ga,C \imp D,A \en B \seq \De}
+ {\Ga ,C \imp D, A,B \seq \De} 
+\]
+By soundness, $I(\Ga,C \imp D,A \en B \seq \De)$ holds in $\cpc$. Therefore also 
+$I(\Ga , A \en B \seq C,\De)$ and $I(\Ga , A \en B,D \seq \De)$ holds in $\cpc$, as they follow from $I(\Ga,C \imp D,A \en B \seq \De)$. By completeness they are derivable in \Gth, say with derivations $\cald_C$ and $\cald_D$, respectively. Then the following is a proof of $\Ga,C \imp D,A \en B \seq \De$ in which the last inference is an application of rule L$\imp$. 
+\[
+ \infer[R \imp]{\Ga, C\en D \seq A \imp B,\De}{\deduce[\cald_C]
+ {\Ga, A \en B \seq C,\De}
+ {} & \deduce[\cald_d]
+ {\Ga,A \en B ,D \seq \De}
+ {} }
+\]
+
+
+\section{}
+
+\[
+\infer[R \en]{p \en (q\imp r) \seq p \en r}{
+{\infer[L \en]{p \en (q \imp r)\seq p}
+{\infer[]{p,(q \imp r)\seq p}{Ax}}
+}&
+{\infer[L \en]{p \en (q \imp r)\seq r}
+{\infer[]{p,(q \imp r)\seq r}{{p \seq q,r}&
+{\infer[]{p,r \seq r}{Ax}}
+}}}}
+\] 
+The label S0 of  $p \seq q,r$ leaf is not an axiom. Let v be
+the valuation that maps all atoms that occur in the antecedent of S0 to 1 and
+all atoms that occur in the succedent of S0 to 0.
+With induction to the depth of the sequent that for all sequents S1 along
+the branch from that leaf to the root of the tree, v(I(S1)) = 0. Therefore
+v(I(S)) = 0, and thus I(S) is not a tautology. 
+
+\clearpage 
+
+\end{document}
+      
