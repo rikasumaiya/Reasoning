@@ -108,32 +108,61 @@
 \end{center}
 
 \section{}
-\begin{small}
+\begin{scriptsize}
 $(\dag)\qquad$ 
 \[
 \infer[\lolli E]{\nd{\Zip{A},\Zip{B},\Zip{A\lolli (B\lolli C)}}{C}}
 {\infer[\lolli I]{\nd{\Zip{A\lolli (B\lolli C)}}{(A\otimes B)\lolli C}}
-{\infer[\otimes E]{\nd{\Zip{A \lolli (B \lolli C)}}{(A \otimes B)\lolli C}}{{\infer[]{\nd{(A \otimes B)}{(A \otimes B)}}{Ax}} & 
+{\infer[\otimes E]{\nd{\Zip{A \lolli (B \lolli C)},(A \otimes B)}{C}}{{\infer[]{\nd{(A \otimes B)}{(A \otimes B)}}{Ax}} & 
 {\infer[\lolli E]{\nd{\Zip{A \lolli (B \lolli C)},{A},{B}}{C}}{
 {\infer[\lolli E]{\nd{\Zip{A \lolli (B \lolli C)},A}{(B \lolli C)}}
-{\infer[]{\nd{\Zip{A\lolli(B \lolli C)}}{\Zip{A \lolli (B \lolli C)}}}{Ax}}}
+{
+{\infer[]{\nd{\Zip{A\lolli(B \lolli C)}}{\Zip{A \lolli (B \lolli C)}}}{Ax}}&{\nd{A}{A}}
+}}
 &{\infer[]{\nd{B}{B}}{Ax}}}}}} &
 \infer[]{\nd{\Zip{A},\Zip{B}}{A\otimes B}}
 {{\infer[]{\nd{\Zip{A}}{A}}{Ax}} &
 {\infer[]{\nd{\Zip{B}}{B}}{Ax}}}}
 \]
 
-\[
-\infer[\lolli E]{\nd{\Zip{A},\Zip{B},\Zip{A \lolli (B \lolli C)}}{C}}
-{{\infer[E \lolli]{\nd{\Zip{A \lolli (B \lolli C)},\Zip{A}}{(B \lolli C)}}{{w}&{r}}}&
-{\infer[]{\nd{B}{B}}{Ax}}}
-\]
-\end{small}
+\end{scriptsize}
+
 \begin{itemize}
-  
   \item[-] the proof is not in normal form: perform the applicable
   proof reduction(s) to bring it in normal form;
+  \begin{scriptsize}
+\[
+\infer[\lolli E]{\nd{\Zip{A},\Zip{B},\Zip{A \lolli (B \lolli C)}}{C}}
+{{\infer[\lolli E]{\nd{\Zip{A \lolli (B \lolli C)},\Zip{A}}{(B \lolli C)}}{{\infer[]{\nd{\Zip{A\lolli(B \lolli C)}}{\Zip{A \lolli (B \lolli C)}}}{Ax}}&{\nd{\Zip{A}}{A}}}}&
+{\infer[]{\nd{B}{B}}{Ax}}}
+\]
+\end{scriptsize}
   \item[-] compute the term for (\dag), and the term that results from term reduction(s).
+\begin{center}
+\begin{scriptsize}
+\rotatebox{90}{
+\infer[\lolli E]{\nd{\Zip{v:A},\Zip{w:B},\Zip{u:A\lolli (B\lolli C)}}
+{\lambda\Zip{t}.case t of \Zip{v,w}\rightarrow u\Zip{t}\Zip{w}\Zip{\Zip{w:B}}:C}
+}
+{\infer[\lolli I]{\nd{u:\Zip{A\lolli (B\lolli C)}}{\lambda\Zip{t}.case t of \Zip{v,w}\rightarrow u\Zip{t}\Zip{w}:(A\otimes B)\lolli C}}
+{\infer[\otimes E]{\nd{\Zip{u:A \lolli (B \lolli C)},(t:A \otimes B)}{case t of \Zip{v,w}\rightarrow u\Zip{t}\Zip{w}:C}}{{\infer[]{\nd{(A \otimes B)}{(A \otimes B)}}{Ax}} & 
+{\infer[\lolli E]{\nd{\Zip{u:A \lolli (B \lolli C)},\Zip{v:A},\Zip{w:B}}{u\Zip{t}\Zip{w}:C}}{
+{\infer[\lolli E]{\nd{\Zip{u:A \lolli (B \lolli C)},\Zip{v:A}}{u\Zip{t}:(B \lolli C)}}
+{
+{\infer[]{\nd{\Zip{u:A\lolli(B \lolli C)}}{\Zip{u:A \lolli (B \lolli C)}}}{Ax}}&{\nd{\Zip{v:A}}{v:A}
+}}}
+&{\infer[]{\nd{w:B}{w:B}}{Ax}}}}}} &
+\infer[]{\nd{\Zip{v:A},\Zip{w:B}}{\Zip{v,w}:A\otimes B}}
+{{\infer[]{\nd{\Zip{v:A}}{v:A}}{Ax}} &
+{\infer[]{\nd{\Zip{w:B}}{w:B}}{Ax}}}}
+}
+\end{scriptsize}
+\end{center}
+\[
+\infer[\lolli E]{\nd{\Zip{y:A},\Zip{z:B},\Zip{x:A \lolli (B \lolli C)}}{x\Zip{y}\Zip{z}: C}}
+{{\infer[\lolli E]{\nd{x:\Zip{A \lolli (B \lolli C)},\Zip{y:A}}{x\Zip{y}:(B \lolli C)}}{{\infer[]{\nd{\Zip{x:A\lolli(B \lolli C)}}{x:\Zip{A \lolli (B \lolli C)}}}{Ax}}&{\nd{\Zip{y:A}}{y:A}}}}&
+{\infer[]{\nd{z:B}{z:B}}{Ax}}}
+\]
 \end{itemize}
 You may leave applications of Exchange implicit, i.e.~treat the antecedent as
 a multiset of assumptions. Remember: the normal form is reached when \emph{no further
@@ -149,78 +178,70 @@ term goes with which judgement?
 \item $\lambda\Zip{w}\lambda\Zip{y}.w\ \Zip{\lambda\Zip{z}.x\ \Zip{z}\ \Zip{y}}$
 \begin{footnotesize}
 \item $\nd{\Zip{A\lolli B\lolli C}}{((A\lolli C)\lolli C)\lolli B\lolli C}$
-\[ 
-\infer[\lolli I]{\nd{\Zip{A\lolli B\lolli C}}{((A\lolli C)\lolli C)\lolli B\lolli C}}
-{\infer[\lolli I]{\nd{\Zip{A \lolli B \lolli C},((A \lolli C)\lolli C)}{B \lolli C}}
-{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},((A \lolli C)\lolli C),B}{C}}{{\infer[]{\nd{((A \lolli C) \lolli C)}{((A \lolli C) \lolli C)}}{Ax}}&
-{\infer[\lolli I]{\nd{\Zip{A \lolli B \lolli C},B} {(A \lolli C)}}
-{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},B,A}{C}}{
-{\infer[\lolli E]{\nd{\Zip{A \lolli B \lolli C},A}{B \lolli C}}
+\begin{center}
+\rotatebox{90}{
+\begin{scriptsize}
+\infer[\lolli I]{\nd{\Zip{x:A \lolli B \lolli C}}{\lambda\Zip{w}.\lambda\Zip{y}w\Zip{\lambda\Zip{z}.x.\Zip{z}\Zip{y}}:((A \lolli C)\lolli C)\lolli B \lolli C}}
+{\infer[\lolli I]{{\nd{\Zip{w:((A\lolli C)\lolli C)\lolli B\lolli C},\Zip{x:A \lolli B \lolli C}}
+{\lambda\Zip{y}w\Zip{\lambda\Zip{z}.x.\Zip{z}\Zip{y}}:B \lolli C}}}
+{\infer[\lolli E]{\nd{\Zip{w:((A\lolli C)\lolli C)\lolli B\lolli C},\Zip{x:A \lolli B \lolli C},\Zip{y:B}}{w\Zip{\lambda\Zip{z}.x.\Zip{z}\Zip{y}}: C}}
 {
-{\infer[]{\nd{\Zip{A \lolli B \lolli C}}{\Zip{A \lolli B \lolli C}}}{Ax}}
+{\nd{\Zip{w:((A\lolli C)\lolli C)\lolli B\lolli C}}{\Zip{w:((A\lolli C)\lolli C)\lolli B\lolli C}}}
 &
-{\infer[]{\nd{A}{A}}{Ax}}
+{\infer[\lolli I]{\nd{\Zip{x:A \lolli B \lolli C},\Zip{y:B}}{\lambda\Zip{z}.x.\Zip{z}\Zip{y}:A \lolli C}}
+{\infer[\lolli E]{\nd{\Zip{x:A \lolli B \lolli C},\Zip{z:A},\Zip{y:B}}{x\Zip{z}\Zip{y}:C}}
+{
+{\infer[\lolli E]{\nd{\Zip{x:A \lolli B \lolli C},\Zip{z:A}}{x\Zip{z}:B \lolli C}}
+{
+{\nd{\Zip{x:A \lolli B \lolli C}}{x:A \lolli B \lolli C}}
+&{\nd{\Zip{z:A}}{z:A}}}
+}
+&{\nd{\Zip{y:B}}{y:B}}}
+}
+}
+}
 }}
-&
-{\infer[]{\nd{B}{B}}{Ax}}
-}}}}}}
-\]
-\[
-\infer[\lolli I]{\nd{\Zip{x:((A \lolli C)\lolli C)\lolli B \lolli C}}{\lambda\Zip{w}.\lambda\Zip{y}.x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}}:A\lolli B \lolli C}
-{\infer[\lolli I]{\nd{\Zip{x:((A \lolli C)\lolli C)\lolli B\lolli C},\Zip{w:A}}
-{\lambda\Zip{y}.x.\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}:B \lolli C}}
-{\infer[\lolli E]{\nd{{\Zip{x:((A \lolli C)\lolli C)\lolli B\lolli C},\Zip{w:A},\Zip{y:B}}{{x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}}}:C}}{{s}&{g}}}
+\end{scriptsize}
 }
-\]
-
+\end{center}
+This judgement matches with $\lambda\Zip{w}\lambda\Zip{y}.w\ \Zip{\lambda\Zip{z}.x\ \Zip{z}\ \Zip{y}}$ term.
 \end{footnotesize}
-\begin{footnotesize}
-\item 
+\item
 $\nd{\Zip{((A\lolli C)\lolli C)\lolli B\lolli C}}{A\lolli B\lolli C}$
-\[
-\infer[\lolli I]{\nd{\Zip{((A\lolli C)\lolli C)\lolli B\lolli C}}{A\lolli B\lolli C}}
-{\infer[\lolli I]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A}{B \lolli C}}
-{\infer[\lolli E]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A,B}{C}}{
-{\infer[\lolli E]{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C},A }{B \lolli C}}
-{{\nd{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C}}{\Zip{((A \lolli C)\lolli C)\lolli B \lolli C}}}&
-{\infer[\lolli I]{\nd{A}{(A \lolli C)\lolli C}}
-{\infer[\lolli E]{\nd{A,A \lolli C}{C}}
-{{\infer[]{\nd{A \lolli C}{A\lolli C}}{Ax}}
-&{\infer[]{\nd{A}{A}}{Ax}}
+\begin{center}
+\rotatebox{90}{
+\begin{scriptsize} 
+\infer[\lolli I]{\nd{\Zip{x:((A\lolli C)\lolli C)\lolli B \lolli C}} \lambda\Zip{w}.\lambda\Zip{y}.x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}:A\lolli B \lolli C}
+{\infer[\lolli I]{\nd{\Zip{x:((A\lolli C)\lolli C)\lolli B \lolli C},\Zip{w:A}}{\lambda\Zip{y}.x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}:B \lolli C}}
+{\infer[\lolli E]{\nd{\Zip{x:((A\lolli C)\lolli C)\lolli B \lolli C},\Zip{w:A},\Zip{y:B}}{x\Zip{\lambda\Zip{z}.z\Zip{w}}.\Zip{y}: C}}
+{
+{\infer[\lolli E]{\nd{\Zip{x:((A\lolli C)\lolli C)\lolli B \lolli C},\Zip{w:A}}{x\Zip{\lambda\Zip{z}.z\Zip{w}}:B \lolli C}}
+{{\nd{\Zip{x:((A\lolli C)\lolli C)\lolli B \lolli C}}{x:((A\lolli C)\lolli C)\lolli B \lolli C}}&
+{\infer[\lolli I]{\nd{\Zip{w:A}}{\lambda\Zip{z}.z\Zip{w}:((A \lolli C)\lolli C)}}
+{\infer[\lolli E]{\nd{\Zip{z:A\lolli C},\Zip{w:A}}{z\Zip{w}:C}}
+{{\nd{\Zip{z:A \lolli C}}{z:A \lolli C}}&{\nd{\Zip{w:A}}{w:A}}}
+}}}}&{\nd{\Zip{y:B}}{y:B}}}
+}}
+\end{scriptsize}
 }
-}}}}
-&
-{\infer[]{\nd{B}{B}}{Ax}}
-}}}
-\]
-\end{footnotesize}
+\end{center}
+This judgement matches with $\lambda\Zip{w}\lambda\Zip{y}.x\ \Zip{\lambda\Zip{z}.z\Zip{w}}\ \Zip{y}$ term.
 \end{enumerate}
-
-Now consider the following translation from implication types/terms in
-ordered grammar logic into linear implication types/terms.
-The translation undoes the distinction between left and right implication:
-both slashes are mapped to linear implication.
-\[\W{types:}\qquad X^{*}=X,\quad (A/B)^{*} = (B\bs A)^{*} = B^{*}\lolli A^{*}\]
-\[\W{terms:}\qquad
-x^{*}=x,\quad (\llambda x.t)^{*}=(\rlambda x.t)^{*}=\lambda\Zip{x^{*}}.t^{*},\quad
-(t\triangleleft u)^{*}=(u\triangleright t)^{*} = t^{*}\Zip{u^{*}}\]
-
-One of the ILL judgements/terms above is the translation of a proof in ordered grammar logic \textbf{NL}
-(no structural rules).
-Give such a proof, using the rules as given in Exercises PH 5, in Blackboard. The other judgement/term does not
-have a source with directional implications $\slash, \bs$ instead of $\lolli$.
-Give the ILL proof for that term, showing explicitly where you have to
-apply Exchange steps.
-
-Hint: for the ILL type $A\lolli B\lolli C$, you will want to try its four ordered versions:
-$A\bs(B\bs C)$, $A\bs(C/B)$, $(B\bs C)/A$, $(C/B)/A$. Similarly for the other types \ldots
-
-
 
 \section{}
 
-Let $\LK^-$ be the system consisting of the axioms and rules of $\LK$ minus Cut and the weakening and contraction rules. Give a formula $A$ such that the sequent $(\,\seq A)$ is provable in $\LK$, but not in $\LK^-$ and provide a  proof of the sequent in  $\LK$ and an argument showing its  nonprovability in $\LK^-$. 
+\[
+\infer[R \of]{A,A \imp B \seq A \of B}
+{\infer[L \imp]{A,A \imp B \seq A,B}{
+{\infer[RW]{A,A \seq A,B}{\infer[LW]{A,A \seq A}{\infer[]{A \seq A}{Ax}}}}
+&
+{\infer[RW]{A,B \seq A,B}
+{\infer[LW]{A,B \seq B}{\infer[]{B \seq B}{Ax}}}
+}
+}}
+\]
 
+For the above proof without the weakening rule we cannot reach axioms in LK system.Therefore in the $LK^-$ this sequent is non provable.
 
 \section{}
 
